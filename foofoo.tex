@@ -1,0 +1,130 @@
+% Page settings
+\documentclass[a4paper, 11pt, dvipdfmx]{jsarticle}
+\textwidth35zw
+\textheight36
+\baselineskip
+\usepackage[truedimen,driver=dvipdfmx,margin=20truemm]{geometry}
+
+% Math font settings
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+% SI unit package
+\usepackage{siunitx}
+% Image utilities
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{float}
+% Column utilities
+\usepackage{multicol}
+% Table utilities
+\usepackage{booktabs}
+% Graph tools
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{math,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+% Citation
+\usepackage[super]{cite}
+\renewcommand{\citeform}[1]{(#1)}
+\bibliographystyle{junsrt}
+% Others
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{paralist}
+\usepackage{pdfpages}
+\usepackage{caption}
+\usepackage{docmute}
+\captionsetup{
+    compatibility=false,
+    labelsep=quad,
+    font={small},
+    labelfont={sf, md},
+    textfont={rm}
+}
+\usepackage[subrefformat=parens]{subcaption}
+\everymath{\displaystyle}
+% \parindent = 0pt
+
+
+% Custom Commands
+% Others
+\newcommand{\maru}[1]{\textcircled{\scriptsize #1}}
+
+% Math
+\newcommand{\dchar}[0]{d}
+\newcommand{\diff}[2]{\frac{\dchar #1}{\dchar #2}}
+\newcommand{\difff}[2]{\frac{\dchar^2 #1}{\dchar #2^2}}
+\newcommand{\pardiff}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pardifff}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+
+% SI Command Addons
+\newcommand{\titlescale}[0]{0.8}
+\newcommand{\unitsep}[0]{\,}
+\newcommand{\listfinal}{\text{, }}
+\newcommand{\rangechar}{\text{から}}
+\newcommand{\stepchar}{\text{ずつ}}
+\newcommand{\untilchar}{\text{まで}}
+\newcommand{\sSI}[2]{$#1\unitsep\mathrm{[\si{#2}]}$}
+\newcommand{\ssSI}[2]{#1\unitsep\mathrm{[\si{#2}]}}
+\newcommand{\mSI}[2]{$#1\unitsep\si{#2}$}
+\newcommand{\mmSI}[2]{#1\unitsep\si{#2}}
+\newcommand{\tSI}[2]{$\text{#1}\unitsep\mathrm{[\si{#2}]}$}
+\newcommand{\SIrangediff}[4]{\SI{#1}{#2}\rangechar\SI{#3}{#4}}
+\newcommand{\SIrangestep}[5]{\SIrange{#1}{#2}{#3}\untilchar\SI{#4}{#5}\stepchar}
+\sisetup{
+  number-unit-product={\unitsep},
+  range-phrase=
+angechar,
+  list-final-separator=\listfinal,
+}
+
+% Unit Alias
+\newcommand{\PkPkStyle}{P-P}
+\newcommand{\mS}{\milli\siemens}
+\newcommand{\Vpp}{\V_{\PkPkStyle}}
+\newcommand{\mVpp}{\mV_{\PkPkStyle}}
+\newcommand{\App}{\A_{\PkPkStyle}}
+\newcommand{\mApp}{\mA_{\PkPkStyle}}
+\newcommand{\tempdeg}{\celsiusDegree}
+
+% Figure size
+\newcommand{\TikzFigureSize}{0.8}
+\newcommand{\GraphixFigureSize}{0.7}
+\newcommand{\GraphixFigureWidth}{0.6\linewidth}
+\newcommand{\MinipageSize}{0.45\hsize}
+\newcommand{\MinipageFigureSize}{0.4}
+\newcommand{\MinipageFigureWidth}{\columnwidth}
+
+% Caption
+\newcommand{\figref}[1]{図\ref{#1}}
+\newcommand{\tabref}[1]{表\ref{#1}}
+\renewcommand{\eqref}[1]{式(\ref{#1})}
+\newcommand{\stepref}[1]{手順\ref{#1}}
+\newcommand{\secref}[1]{章\ref{#1}}
+
+\newcommand{\FigPathPrefx}{}
+
+\begin{document}
+
+\begin{figure}[htbp]
+    \centering
+    \scalebox{\TikzFigureSize}{
+        \begin{circuitikz}
+            \draw(0,0) node[cground]{} to[R, l=$R_2$] (0,3) to[sR, l2=$R_T$ (\SI{100}{\kohm} at \SI{25}{\degreeCelsius})and{$B{=}4250$}, -*] (0,6);
+            \draw(0,3) to[short, *-] (2,3) to[R, l=$R_1$] (2,6);
+            \draw(2,6) to[short, -o] (-2,6) node[left]{\SI{5}{\V}};
+            \draw(2,3) to[short, *-o] (3,3) node[right]{$0$ $-$ \SI{2}{\V}  ($20$ $-$ \SI{100}{\degreeCelsius})};
+
+        \end{circuitikz}
+    }
+\end{figure}
+\begin{equation}
+    V_o = \frac{R_1 R_2 + R_2 R_T}{R_1 R_T + R_1 R_2 + R_T} V_{in}
+\end{equation}
+ただし
+\begin{equation}
+    R_T = R_{25}\exp\left(\frac{1}{T+273} - \frac{1}{25 + 273}\right)
+\end{equation}
+% \bibliography{(bibtex_file)}
+\end{document}
