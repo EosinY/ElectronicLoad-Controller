@@ -3,11 +3,16 @@ fp-info-cache
 fp-lib-table
 *.zip
 *.lck
+*.step
 *.kicad_sch-bak
 *.kicad_prl
 Gerber/*.gbr
 Gerber/*.gbrjob
 Gerber/*.drl
-
 production/*
 *.json
+
+W25Q16JVUXIQ_TR/*
+ROM.pretty/*
+*.py
+*.png
